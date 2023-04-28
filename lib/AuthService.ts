@@ -8,6 +8,7 @@ class AuthService {
       `${this.host}auth/login`,
       {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
