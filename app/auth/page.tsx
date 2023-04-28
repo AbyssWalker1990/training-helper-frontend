@@ -1,11 +1,16 @@
 'use client'
-import { useState, ChangeEvent, FormEvent, MouseEvent } from 'react'
+import { useState, ChangeEvent, MouseEvent } from 'react'
+import AuthService from '@/lib/AuthService'
+import { API_HOST } from '@/lib/config'
+
 
 function Auth() {
   const [formData, setFormData] = useState({
     user: '',
     password: ''
   })
+
+  const authService = new AuthService(API_HOST)
 
   const { user, password } = formData
 
@@ -19,6 +24,12 @@ function Auth() {
   const onSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     console.log(`${user}  ${password}`)
+    const userData = {
+      user,
+      password
+    }
+    const accessToken = await authService.handleLogin(userData)
+    console.log(accessToken)
   }
 
   return (
