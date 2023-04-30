@@ -9,18 +9,21 @@ declare module 'next-auth' {
   }
 }
 
+type Exercise = {
+  position: number
+  name: string
+  set: {
+    setPos: number
+    reps: number
+    weight: number
+  }
+}
+
 type Training = {
   username: string
   title: string
   date: Date
-  exercises: [{
-    position: number
-    name: string
-    set: {
-      setPos: number
-      reps: number
-      weight: number
-    }
-  }]
+  exercises: Exercise[],
+  _id: string
 }
 
