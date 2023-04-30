@@ -15,7 +15,7 @@ export default function NavbarTop() {
         <div>
           { session?.user ? (
             <>
-              <p>{session?.user?.name}</p>
+              <p>{session?.user?.username}</p>
               <button onClick={() => {signOut()}}>Sign out</button>
             </>
           ) : (

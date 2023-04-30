@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
+
 const handler = NextAuth ({
   // Configure one or more authentication providers
   providers: [
@@ -29,8 +30,6 @@ const handler = NextAuth ({
         })
         const user = await res.json()
         if (res.ok && user) {
-          console.log(`User ${user}`)
-          user.name = user.username
           return user
         } else {
           return null
@@ -47,9 +46,9 @@ const handler = NextAuth ({
     },
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
-      session.user = token;
+      session.user = token as any
 
-      return session;
+      return session
     },
   },
   pages: {

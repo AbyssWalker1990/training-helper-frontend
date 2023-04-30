@@ -1,4 +1,9 @@
 
+export const metadata = {
+  title: 'Training Helper',
+  description: 'Diary for planning fitness trainings schema',
+}
+
 export default function Home() {
   return (
     <main className="px-6 mx-auto">
