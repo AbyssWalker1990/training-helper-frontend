@@ -25,7 +25,7 @@ function Auth() {
     e.preventDefault()
     console.log(`${user}  ${password}`)
     const userData = {
-      user,
+      username: user,
       password
     }
     const accessToken = await authService.handleLogin(userData)
