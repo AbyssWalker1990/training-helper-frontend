@@ -1,7 +1,6 @@
 'use client'
 import { useState, ChangeEvent, MouseEvent } from 'react'
-import AuthService from '@/lib/AuthService'
-import { API_HOST } from '@/lib/config'
+import { signIn } from 'next-auth/react'
 
 
 function Auth() {
@@ -9,8 +8,6 @@ function Auth() {
     user: '',
     password: ''
   })
-
-  const authService = new AuthService(API_HOST)
 
   const { user, password } = formData
 
@@ -22,14 +19,13 @@ function Auth() {
   }
 
   const onSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    console.log(`${user}  ${password}`)
-    const userData = {
+    console.log(user)
+    const result = await signIn('credentials', {
       username: user,
-      password
-    }
-    const accessToken = await authService.handleLogin(userData)
-    console.log(accessToken)
+      password: password,
+      redirect: true,
+      callbackUrl: '/'
+    })
   }
 
   return (

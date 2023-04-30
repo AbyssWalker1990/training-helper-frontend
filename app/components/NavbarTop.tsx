@@ -5,6 +5,7 @@ import Link from 'next/link'
 export default function NavbarTop() {
 
   const { data: session } = useSession()
+  console.log({session})
 
   return (
     <nav className="bg-slate-600 p-4 sticky top-0 drop-shadow-xl z-10">
@@ -19,7 +20,6 @@ export default function NavbarTop() {
             </>
           ) : (
             <>
-              <p>{session?.user?.name}</p>
               <button onClick={() => {signIn()}}>Sign In</button>
             </>
           )}

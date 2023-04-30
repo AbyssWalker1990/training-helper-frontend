@@ -22,13 +22,15 @@ const handler = NextAuth ({
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(
+          body: JSON.stringify({
             username,
             password,
-          )
+        })
         })
         const user = await res.json()
         if (res.ok && user) {
+          console.log(`User ${user}`)
+          user.name = user.username
           return user
         } else {
           return null
@@ -38,6 +40,17 @@ const handler = NextAuth ({
   ],
   session: {
     strategy: "jwt"
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token from a provider.
+      session.user = token;
+
+      return session;
+    },
   },
   pages: {
     signIn: '/auth/login/'
