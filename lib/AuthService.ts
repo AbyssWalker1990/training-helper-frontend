@@ -3,7 +3,7 @@ class AuthService {
     this.host = host
   }
 
-  public async handleLogin(userData: {}) {
+  public async handleLogin(userData: any) {
     const response = await fetch(
       `${this.host}auth/login`,
       {

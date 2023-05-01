@@ -6,10 +6,10 @@ import { Training } from '@/types';
 
 function Trainings() {
   const [trainings, setTrainings] = useState([])
-  const { data: session } = useSession()
-
+  
+  const { data } = useSession()
   useEffect(() => {
-    setCookie('jwt', session?.user.accessToken)
+    setCookie('jwt', data?.user.accessToken)
   })
 
   const getTrainings = async () => {
@@ -17,8 +17,7 @@ function Trainings() {
       method: 'GET',
       credentials: 'include',
       headers: {
-        Cookie: `jwt=${session?.user.accessToken}`,
-        Authorization: `Bearer ${session?.user.accessToken}`
+        Cookie: `jwt=${data?.user.accessToken}`
       }
     })
     console.log('dataTrainings: ', dataTrainings)

@@ -1,4 +1,5 @@
 import { API_HOST } from "./config";
+import { Training } from "@/types";
 
 class TrainingService {
   constructor (public host: string) {
