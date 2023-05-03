@@ -5,20 +5,27 @@ import { setCookie } from 'cookies-next';
 import { Training } from '@/types';
 
 function Trainings() {
+  
   const [trainings, setTrainings] = useState([])
   
   const { data } = useSession()
+  setCookie('jwt', data?.user.accessToken)
   useEffect(() => {
-    setCookie('jwt', data?.user.accessToken)
+    setCookie('lol', '123213')
+    
+    console.log(data?.user.accessToken)
   })
 
   const getTrainings = async () => {
+    const token = data?.user.accessToken as string
     const dataTrainings = await fetch(`http://localhost:3500/trainings/user`, {
-      method: 'GET',
-      credentials: 'include',
+      method: 'POST',
       headers: {
-        Cookie: `jwt=${data?.user.accessToken}`
-      }
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token
+      })
     })
     console.log('dataTrainings: ', dataTrainings)
     const trainingsData = await dataTrainings.json()

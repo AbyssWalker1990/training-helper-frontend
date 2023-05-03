@@ -10,19 +10,19 @@ export default function NavbarTop() {
 
   return (
     <nav className="bg-slate-600 p-4 sticky top-0 drop-shadow-xl z-10">
-      <div className='mx-auto flex justify-left gap-3 flex-col sm:flex-row'>
+      <div className='w-full mx-auto flex justify-left gap-3 flex-col sm:flex-row'>
         <Link href='/' className="text-white/90 no-underline hover:text-white">Home</Link>
         <Link href='/admin' className="text-white/90 no-underline hover:text-white">Admin</Link>
-        <div>
+        <div className="w-full text-white/90hover:text-white">
           { session?.user ? (
-            <>
-              <p>{session?.user?.username}</p>
+            <div className='flex justify-between w-full text-white/90 hover:text-white'>
               <button onClick={() => {signOut()}}>Sign out</button>
-            </>
+              <p className='justify-right sm:align-middle'>{session?.user?.username}</p> 
+            </div>
           ) : (
-            <>
-              <button onClick={() => {signIn()}}>Sign In</button>
-            </>
+            <div>
+              <button className="text-white/90 hover:text-white" onClick={() => {signIn()}}>Sign In</button>
+            </div>
           )}
         </div>
       </div>

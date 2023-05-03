@@ -1,6 +1,7 @@
 'use client'
 import { useState, ChangeEvent, MouseEvent } from 'react'
 import { signIn } from 'next-auth/react'
+import Link from 'next/link'
 
 
 function Auth() {
@@ -54,8 +55,12 @@ function Auth() {
       type="button"  onClick={onSubmit}>
       Sign In
     </button>
+    <div className='flex justify-left gap-2'>
+      <p className='text-sm'>Haven&apos;t account? </p>
+      <Link className='font-bold text-sm text-blue-500 hover:text-blue-800' href='/auth/sign'>Sign Up</Link>
+    </div>
     <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-      href="#">
+      href="/">
       Forgot Password?
     </a>
   </div>
