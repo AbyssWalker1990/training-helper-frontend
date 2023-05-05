@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions } from "next-auth"
+import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 
@@ -47,7 +47,6 @@ const handler = NextAuth ({
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
       session.user = token as any
-
       return session
     },
   },
