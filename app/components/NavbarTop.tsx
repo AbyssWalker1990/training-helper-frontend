@@ -16,7 +16,7 @@ export default function NavbarTop() {
         <div className="w-full text-white/90hover:text-white">
           { session?.user ? (
             <div className='flex justify-between w-full text-white/90 hover:text-white'>
-              <button onClick={() => {signOut()}}>Sign out</button>
+              <button onClick={() => {signOut({callbackUrl: '/'})}}>Sign out</button>
               <p className='justify-right sm:align-middle'>{session?.user?.username}</p> 
             </div>
           ) : (
