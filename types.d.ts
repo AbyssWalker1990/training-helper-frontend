@@ -16,7 +16,7 @@ type Exercise = {
     setPos: number
     reps: number
     weight: number
-  }
+  }[]
 }
 
 type Training = {
