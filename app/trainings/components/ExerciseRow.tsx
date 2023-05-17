@@ -23,11 +23,11 @@ const ExerciseRow: React.FC<Props> = ( {exercise} ) => {
   
   if (sets.length > 0) {
     return (
-      <div className='flex-column justify-content-left'>
+      <div className='p-5 justify-content-left flex flex-wrap'>
         <div className='w-full'>
           <h1>{exercise.position}. {exercise.name}</h1>
         </div>
-        <div className='w-full flex gap-3 overflow-hidden'>
+        <div className='w-full flex flex-wrap gap-3 overflow-hidden border'>
         {sets.map((set) => (
           <div key={sets.indexOf(set)}>
             <span className='border'>{set[0]}x{set[1]}</span>
@@ -36,6 +36,11 @@ const ExerciseRow: React.FC<Props> = ( {exercise} ) => {
         </div>
 
       </div>
+    )
+  }
+  else {
+    return (
+      <h1>Nothing</h1>
     )
   }
 
