@@ -15,7 +15,7 @@ const FormExerciseRow: React.FC<Props> = ({ id }) => {
     if (exerciseRow !== null) {
       // const child = document.createElement('div')
       // exerciseRow.appendChild(child)
-      const setsContainer = document.getElementById('sets')
+      const setsContainer = document.getElementById(`${id}-sets`)
       if (setsContainer !== null) {
         const child = document.createElement('div')
         setsContainer.appendChild(child)
@@ -34,7 +34,7 @@ const FormExerciseRow: React.FC<Props> = ({ id }) => {
           <input type="text" id="name" name="name" className='border'/>
         </div>
 
-        <div id="sets">
+        <div id={`${id}-sets`} className="flex flex-row flex-wrap gap-2 max-w-md border">
          
         </div>
 
