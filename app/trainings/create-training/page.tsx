@@ -1,21 +1,23 @@
 'use client'
 import React from 'react'
-import ReactDOM from 'react-dom';
+import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useSession } from 'next-auth/react'
 import FormExerciseRow from '../components/FormExerciseRow';
 
-function CreateTrainingPage() {
+const CreateTrainingPage = () => {
   const { data: session } = useSession()
+  const [training, setTraining] = useState([])
+  let exerciseId = 1
 
   const addExercise = () => {
-    console.log('Hello')
     const form = document.getElementById("exercise-form")
     if (form !== null) {
       const child = document.createElement('div')
       form.appendChild(child)
       const root = createRoot(child)
-      root.render(<FormExerciseRow />)
+      root.render(<FormExerciseRow id={exerciseId}/>)
+      exerciseId++
     }
     
     

@@ -3,7 +3,7 @@ import React from 'react'
 import ExerciseRow from './ExerciseRow'
 
 type Props = {
-  training: Training;
+  training: Training
 }
 
 const  SingleTraining: React.FC<Props> = ({training}) => {
