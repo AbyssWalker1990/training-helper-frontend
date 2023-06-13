@@ -23,7 +23,7 @@ const ExerciseRow: React.FC<Props> = ( {exercise} ) => {
   
   if (sets.length > 0) {
     return (
-      <div className='p-5 justify-content-left flex flex-wrap'>
+      <div className='p-5 justify-content-left flex flex-wrap bg-slate-100'>
         <div className='w-full'>
           <h1>{exercise.position}. {exercise.name}</h1>
         </div>

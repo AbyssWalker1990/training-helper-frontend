@@ -37,7 +37,7 @@ const Trainings: React.FC = () => {
   
   if (trainings.length >= 1) {
     return (
-      <div className='flex flex-wrap'>
+      <div className='flex flex-wrap h-screen'>
         <div id='trainings' className='flex flex-wrap justify-center items-center p-5 gap-5'>
           {trainings.map((training: Training) => (
             <SingleTraining key={training._id} training={training}/>
@@ -47,7 +47,7 @@ const Trainings: React.FC = () => {
     )
   } else {
       return (
-        <div className='flex flex-wrap'>
+        <div className='flex flex-wrap h-screen'>
           <div id='trainings' className='flex flex-wrap justify-center items-center p-5 gap-5'>
             <h1>You Have not trainings yet!!!</h1>
           </div>

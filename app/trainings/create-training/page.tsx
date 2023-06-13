@@ -17,14 +17,14 @@ const CreateTrainingPage = () => {
       form.appendChild(child)
       const root = createRoot(child)
       root.render(<FormExerciseRow id={exerciseId}/>)
-      exerciseId++
+      ++exerciseId
     }
     
     
   }
 
   return (
-    <div className='flex flex-wrap w-full' id='training-form-container'>
+    <div className='flex flex-wrap w-full bg-slate-500 h-screen' id='training-form-container'>
       <div className='p-4 w-full border border-gray-300 shadow-md rounded-lg p-4' >
         <div id='exercise-form' className='w-full flex-column'>
 
