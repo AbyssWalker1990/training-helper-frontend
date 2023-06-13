@@ -2,12 +2,18 @@ import React from 'react'
 import { createRoot } from 'react-dom/client';
 import Set from './Set';
 
-
-type Props = {
-  id: number
+type Set = {
+  setPos: number
+  reps: number
+  weight: number
 }
 
-const FormExerciseRow: React.FC<Props> = ({ id }) => {
+type Props = {
+  id: number,
+  onCreateSet: (data: Set, id: number) => void,
+}
+
+const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet }) => {
   let position = 1
   const addSet = () => {
     console.log('Add Set')
@@ -20,23 +26,30 @@ const FormExerciseRow: React.FC<Props> = ({ id }) => {
         const child = document.createElement('div')
         setsContainer.appendChild(child)
         const root = createRoot(child)
-        root.render(<Set id={id} position={position}/>)
+        root.render(<Set id={id} position={position} />)
         ++position
       }
 
+      const blankSet = {
+        setPos: position,
+        reps: 0,
+        weight: 0,
+      }
+
+      onCreateSet(blankSet, id)
+    }
   }
-}
 
   return (
     <div>
       <div className='flex gap-2 mt-2 items-center justify-between border bg-slate-400'>
         <div id={`${id}-exercise-name`}>
           <label htmlFor={`${id}-name`}>{id}</label>
-          <input type="text" id={`${id}-name`} name={`${id}-name`} className='border bg-slate-100'/>
+          <input type="text" id={`${id}-name`} name={`${id}-name`} className='border bg-slate-100' />
         </div>
 
         <div id={`${id}-sets`} className="flex flex-row flex-wrap gap-2 max-w-md border bg-slate-400'">
-         
+
         </div>
 
         <div id={`${id}-add-button`} className='w-1/4 flex items-center justify-center text-center'>
