@@ -76,6 +76,13 @@ const CreateTrainingPage = () => {
     })
   }
 
+  const setTrainingName = (e: ChangeEvent<HTMLInputElement>): void => {
+    setTraining((prevState) => ({
+      ...prevState,
+      title: e.target.value
+    }))
+  }
+
   const setExerciseName = (e: ChangeEvent<HTMLInputElement>): void => {
     setTraining((prevState) => {
       const copy = { ...prevState }
@@ -116,6 +123,10 @@ const CreateTrainingPage = () => {
     <div className='flex flex-wrap w-full bg-slate-500 h-screen' id='training-form-container'>
       <div className='p-4 w-full border border-gray-300 shadow-md rounded-lg p-4' >
         <div id='exercise-form' className='w-full flex-column'>
+
+          <label htmlFor='training-name'>Training Name:</label>
+          <input type="text" id='training-name' onChange={setTrainingName} name='training-name' className='border bg-slate-100' />
+
 
         </div>
         <button onClick={addExercise} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
