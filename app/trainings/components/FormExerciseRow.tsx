@@ -15,7 +15,7 @@ type Props = {
 }
 
 const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName }) => {
-  let position = 1
+  let position = 0
 
   const addSet = () => {
     console.log('Add Set')
@@ -29,7 +29,7 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName }) 
         setsContainer.appendChild(child)
         const root = createRoot(child)
         root.render(<Set id={id} position={position} />)
-        ++position
+        position++
       }
 
       const blankSet = {
