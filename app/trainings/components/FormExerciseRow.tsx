@@ -9,12 +9,13 @@ type Set = {
 }
 
 type Props = {
-  id: number,
-  onCreateSet: (data: Set, id: number) => void,
+  id: number
+  onCreateSet: (data: Set, id: number) => void
   setExerciseName: (e: ChangeEvent<HTMLInputElement>) => void
+  setReps: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName }) => {
+const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName, setReps }) => {
   let position = 0
 
   const addSet = () => {
@@ -28,7 +29,7 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName }) 
         const child = document.createElement('div')
         setsContainer.appendChild(child)
         const root = createRoot(child)
-        root.render(<Set id={id} position={position} />)
+        root.render(<Set id={id} position={position} setReps={setReps} />)
         position++
       }
 
@@ -42,8 +43,6 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName }) 
     }
   }
 
-
-
   return (
     <div>
       <div className='flex gap-2 mt-2 items-center justify-between border bg-slate-400'>
@@ -53,7 +52,6 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName }) 
         </div>
 
         <div id={`${id}-sets`} className="flex flex-row flex-wrap gap-2 max-w-md border bg-slate-400'">
-
         </div>
 
         <div id={`${id}-add-button`} className='w-1/4 flex items-center justify-center text-center'>
@@ -61,12 +59,9 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName }) 
             Add Set
           </button>
         </div>
-
-
       </div>
     </div>
   )
 }
-
 
 export default FormExerciseRow

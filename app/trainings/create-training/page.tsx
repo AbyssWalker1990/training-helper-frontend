@@ -43,7 +43,14 @@ const CreateTrainingPage = () => {
       const child = document.createElement('div')
       form.appendChild(child)
       const root = createRoot(child)
-      root.render(<FormExerciseRow id={exerciseId} onCreateSet={createSet} setExerciseName={setExerciseName} />)
+      root.render(
+        <FormExerciseRow
+          id={exerciseId}
+          onCreateSet={createSet}
+          setExerciseName={setExerciseName}
+          setReps={setReps}
+        />
+      )
 
       const blankExercise = {
         position: exerciseId,
@@ -74,6 +81,33 @@ const CreateTrainingPage = () => {
       const copy = { ...prevState }
       const index = Number(e.target.id.split('-')[0]) - 1
       copy.exercises[index].name = e.target.value
+      return copy
+    })
+  }
+
+  // ID Example = 3-0-set-rep
+  const setReps = (e: ChangeEvent<HTMLInputElement>): void => {
+    const idData = e.target.id.split('-')
+    const exerciseId = Number(idData[0]) - 1
+    const setPos = Number(idData[1])
+    const type = idData[3]
+    console.log(
+      `idData: ${idData}\nexerciseId: ${exerciseId}\nsetPos: ${setPos}\ntype: ${type}`
+    )
+
+    setTraining((prevState) => {
+      const copy = { ...prevState }
+      copy.exercises.forEach(exercise => {
+        exercise.sets = prevState.exercises[exercise.position - 1].sets
+      })
+      console.log(copy)
+      if (type === 'rep') {
+        copy.exercises[exerciseId].sets[setPos].reps = Number(e.target.value)
+      }
+      if (type === 'weight') {
+        copy.exercises[exerciseId].sets[setPos].weight = Number(e.target.value)
+
+      }
       return copy
     })
   }
