@@ -14,7 +14,7 @@ type Set = {
 type Exercise = {
   position: number
   name: string
-  set: Set[]
+  sets: Set[]
 }
 
 type Training = {
@@ -48,13 +48,7 @@ const CreateTrainingPage = () => {
       const blankExercise = {
         position: exerciseId,
         name: '',
-        set: [
-          {
-            setPos: 1,
-            reps: 0,
-            weight: 0,
-          }
-        ]
+        sets: []
       }
 
       setTraining((prevState) => ({
@@ -70,7 +64,7 @@ const CreateTrainingPage = () => {
   const createSet = (data: Set, id: number): void => {
     setTraining((prevState) => {
       const copy = { ...prevState }
-      copy.exercises[id - 1].set.push(data)
+      copy.exercises[id - 1].sets.push(data)
       return copy
     })
   }
