@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useSession } from 'next-auth/react'
@@ -43,7 +43,7 @@ const CreateTrainingPage = () => {
       const child = document.createElement('div')
       form.appendChild(child)
       const root = createRoot(child)
-      root.render(<FormExerciseRow id={exerciseId} onCreateSet={createSet} />)
+      root.render(<FormExerciseRow id={exerciseId} onCreateSet={createSet} setExerciseName={setExerciseName} />)
 
       const blankExercise = {
         position: exerciseId,
@@ -67,10 +67,19 @@ const CreateTrainingPage = () => {
     }
   }
 
-  const createSet = (data: Set, id: number) => {
+  const createSet = (data: Set, id: number): void => {
     setTraining((prevState) => {
       const copy = { ...prevState }
       copy.exercises[id - 1].set.push(data)
+      return copy
+    })
+  }
+
+  const setExerciseName = (e: ChangeEvent<HTMLInputElement>): void => {
+    setTraining((prevState) => {
+      const copy = { ...prevState }
+      const index = Number(e.target.id.split('-')[0]) - 1
+      copy.exercises[index].name = e.target.value
       return copy
     })
   }

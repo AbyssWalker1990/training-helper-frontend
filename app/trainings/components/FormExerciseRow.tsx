@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { createRoot } from 'react-dom/client';
 import Set from './Set';
 
@@ -11,10 +11,12 @@ type Set = {
 type Props = {
   id: number,
   onCreateSet: (data: Set, id: number) => void,
+  setExerciseName: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet }) => {
+const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName }) => {
   let position = 1
+
   const addSet = () => {
     console.log('Add Set')
     const exerciseRow = document.getElementById(`${id}-exercise-name`)
@@ -40,12 +42,14 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet }) => {
     }
   }
 
+
+
   return (
     <div>
       <div className='flex gap-2 mt-2 items-center justify-between border bg-slate-400'>
         <div id={`${id}-exercise-name`}>
           <label htmlFor={`${id}-name`}>{id}</label>
-          <input type="text" id={`${id}-name`} name={`${id}-name`} className='border bg-slate-100' />
+          <input type="text" id={`${id}-name`} onChange={setExerciseName} name={`${id}-name`} className='border bg-slate-100' />
         </div>
 
         <div id={`${id}-sets`} className="flex flex-row flex-wrap gap-2 max-w-md border bg-slate-400'">
