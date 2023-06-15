@@ -18,7 +18,7 @@ type Exercise = {
 }
 
 type Training = {
-  user: string
+  username: string
   title: string
   exercises: Exercise[]
 }
@@ -29,7 +29,7 @@ const CreateTrainingPage = () => {
 
   const { data: session } = useSession()
   const [training, setTraining] = useState<Training>({
-    user: session?.user?.username as string,
+    username: session?.user?.username as string,
     title: '',
     exercises: []
   })
@@ -119,6 +119,18 @@ const CreateTrainingPage = () => {
     })
   }
 
+  const saveTraining = async () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(training)
+    }
+
+    const response = await fetch('http://localhost:3500/trainings/', requestOptions)
+    const data = await response.json()
+    console.log(data)
+  }
+
   return (
     <div className='flex flex-wrap w-full bg-slate-500 h-screen' id='training-form-container'>
       <div className='p-4 w-full border border-gray-300 shadow-md rounded-lg p-4' >
@@ -129,65 +141,18 @@ const CreateTrainingPage = () => {
 
 
         </div>
-        <button onClick={addExercise} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
-          Add Exercise
-        </button>
+        <div className='flex justify-between'>
+          <button onClick={addExercise} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
+            Add Exercise
+          </button>
+          <button onClick={saveTraining} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
+            Save
+          </button>
+        </div>
       </div>
+
     </div>
   )
-}
-
-const trainingExample = {
-  "_id": "645009a8b091a26619836a6b",
-  "username": "Vova",
-  "title": "Test training",
-  "exercises": [
-    {
-      "position": "1",
-      "name": "Dumbbell Curl",
-      "set": [
-        {
-          "setPos": 1,
-          "reps": 20,
-          "weight": 23,
-          "_id": "645009a8b091a26619836a6d"
-        },
-        {
-          "setPos": 2,
-          "reps": 14,
-          "weight": 180,
-          "_id": "645009a8b091a26619836a6e"
-        },
-        {
-          "setPos": 3,
-          "reps": 9,
-          "weight": 83,
-          "_id": "645009a8b091a26619836a6f"
-        },
-        {
-          "setPos": 4,
-          "reps": 7,
-          "weight": 36,
-          "_id": "645009a8b091a26619836a70"
-        },
-        {
-          "setPos": 5,
-          "reps": 17,
-          "weight": 54,
-          "_id": "645009a8b091a26619836a71"
-        },
-        {
-          "setPos": 6,
-          "reps": 14,
-          "weight": 198,
-          "_id": "645009a8b091a26619836a72"
-        }
-      ],
-      "_id": "645009a8b091a26619836a6c"
-    },
-  ],
-  "date": "2023-05-01T18:49:12.750Z",
-  "__v": 0
 }
 
 export default CreateTrainingPage

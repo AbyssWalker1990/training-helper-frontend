@@ -12,7 +12,7 @@ declare module 'next-auth' {
 type Exercise = {
   position: number
   name: string
-  set: {
+  sets: {
     setPos: number
     reps: number
     weight: number
