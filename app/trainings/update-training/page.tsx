@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useSession } from 'next-auth/react'
 import FormExerciseRow from '../components/FormExerciseRow';
+import { NextPageContext } from 'next'
+
 
 type Set = {
   setPos: number
@@ -25,7 +27,9 @@ type Training = {
 
 let exerciseId = 1
 
-const UpdateTrainingPage = () => {
+
+
+const UpdateTrainingPage = ({ query }) => {
 
   const { data: session } = useSession()
   const [training, setTraining] = useState<Training>({
@@ -33,6 +37,9 @@ const UpdateTrainingPage = () => {
     title: '',
     exercises: []
   })
+
+  console.log('Query: ', query)
+
 
   const addExercise = () => {
 
@@ -152,5 +159,12 @@ const UpdateTrainingPage = () => {
     </div>
   )
 }
+
+
+
+UpdateTrainingPage.getInitialProps = async ({ query }) => {
+  console.log('QUERY: ', query)
+  return { query };
+};
 
 export default UpdateTrainingPage
