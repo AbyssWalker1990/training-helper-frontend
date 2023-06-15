@@ -1,6 +1,7 @@
 import React from 'react'
 import { Exercise } from '@/types'
 import ExerciseRow from '../components/ExerciseRow'
+import Link from 'next/link'
 
 type Params = {
   params: {
@@ -15,6 +16,8 @@ const getTrainingById = async (trainingId: string) => {
   return await response.json()
 }
 
+
+
 const TrainingPage = async ({ params: { trainingId } }: Params) => {
 
   const trainingData = await getTrainingById(trainingId)
@@ -26,6 +29,9 @@ const TrainingPage = async ({ params: { trainingId } }: Params) => {
       <div>{trainingData.exercises.map((exercise: Exercise) => (
         <ExerciseRow key={exercise.position} exercise={exercise} />))}
       </div>
+
+      <Link href='/trainings/update-training' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">Edit</Link>
+
     </div>
   )
 }
