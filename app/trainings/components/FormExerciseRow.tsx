@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 import { createRoot } from 'react-dom/client';
 import Set from './Set';
 
@@ -13,12 +13,25 @@ type Props = {
   onCreateSet: (data: Set, id: number) => void
   setExerciseName: (e: ChangeEvent<HTMLInputElement>) => void
   setReps: (e: ChangeEvent<HTMLInputElement>) => void
+  setCount: number
 }
 
-const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName, setReps }) => {
+const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName, setReps, setCount }) => {
   let position = 0
 
-  const addSet = () => {
+  useEffect(() => {
+    console.log('Exercise Row Use Effect')
+    console.log('setCount: ', setCount)
+    if (setCount > 0) {
+      for (let i = 0; i < setCount; i++) {
+        addSet()
+      }
+    }
+  }, [setCount])
+
+
+
+  function addSet(): void {
     console.log('Add Set')
     const exerciseRow = document.getElementById(`${id}-exercise-name`)
     if (exerciseRow !== null) {

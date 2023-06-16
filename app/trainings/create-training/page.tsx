@@ -49,6 +49,7 @@ const CreateTrainingPage = () => {
           onCreateSet={createSet}
           setExerciseName={setExerciseName}
           setReps={setReps}
+          setCount={0}
         />
       )
 

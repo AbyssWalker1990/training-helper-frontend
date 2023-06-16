@@ -1,7 +1,6 @@
 'use client'
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import { Exercise } from '@/types'
-import ExerciseRow from '../components/ExerciseRow'
 import FormExerciseRow from '../../components/FormExerciseRow'
 import { createRoot } from 'react-dom/client'
 
@@ -42,7 +41,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
       console.log('Training data: ', data)
       const exerciseCount = getExerciseCount(data)
       console.log('exerciseCount: ', exerciseCount)
-      createExerciseRows(exerciseCount)
+      createExerciseRows(exerciseCount, data)
     }
     setInitialState()
 
@@ -56,9 +55,11 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     return training.exercises.length
   }
 
-  function createExerciseRows(exerciseCount: number): void {
+  function createExerciseRows(exerciseCount: number, data: Training): void {
     for (let i = 0; i < exerciseCount; i++) {
-      addExercise()
+      const setsNumber = data.exercises[i].sets.length
+      console.log('setsNumber: ', setsNumber)
+      addExercise(setsNumber)
     }
   }
 
@@ -131,7 +132,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     })
   }
 
-  function addExercise() {
+  function addExercise(setCount = 0) {
 
     const form = document.getElementById("exercise-form")
     if (form !== null) {
@@ -144,6 +145,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
           onCreateSet={createSet}
           setExerciseName={setExerciseName}
           setReps={setReps}
+          setCount={setCount}
         />
       )
 
@@ -190,7 +192,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
 
           </div>
           <div className='flex justify-between'>
-            <button onClick={addExercise} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
+            <button onClick={() => addExercise} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
               Add Exercise
             </button>
             <button onClick={saveTraining} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
