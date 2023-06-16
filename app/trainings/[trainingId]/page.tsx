@@ -63,10 +63,10 @@ const TrainingPage = async ({ params: { trainingId } }: Params) => {
   return (
     <div id='single-training'>
 
-      {/* <h4>{trainingData.title}</h4>
+      <h4>{trainingData.title}</h4>
       <div>{trainingData.exercises.map((exercise: Exercise) => (
         <ExerciseRow key={exercise.position} exercise={exercise} />))}
-      </div> */}
+      </div>
 
       <div>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2"><a href={`http://localhost:3000/trainings/${trainingData._id}/update`}>Edit</a></button>
