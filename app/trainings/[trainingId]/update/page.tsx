@@ -34,14 +34,33 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
   })
   const [test, setTest] = useState('')
 
+
   useEffect(() => {
     const setInitialState = async () => {
       const data = await getTrainingById(trainingId)
       setSingleTraining(data)
+      console.log('Training data: ', data)
+      const exerciseCount = getExerciseCount(data)
+      console.log('exerciseCount: ', exerciseCount)
+      createExerciseRows(exerciseCount)
     }
     setInitialState()
+
+
+
+
   }, [trainingId])
 
+  function getExerciseCount(training: Training): number {
+    console.log('singleTraining.exercises.length: ', singleTraining.exercises.length)
+    return training.exercises.length
+  }
+
+  function createExerciseRows(exerciseCount: number): void {
+    for (let i = 0; i < exerciseCount; i++) {
+      addExercise()
+    }
+  }
 
   async function getTrainingById(trainingId: string) {
     const response = await fetch(`http://localhost:3500/trainings/${trainingId}`)
@@ -112,7 +131,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     })
   }
 
-  const addExercise = () => {
+  function addExercise() {
 
     const form = document.getElementById("exercise-form")
     if (form !== null) {
