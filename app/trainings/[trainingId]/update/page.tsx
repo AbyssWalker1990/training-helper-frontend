@@ -31,24 +31,36 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     title: '',
     exercises: []
   })
-  const [test, setTest] = useState('')
-
 
   useEffect(() => {
     const setInitialState = async () => {
-      const data = await getTrainingById(trainingId)
+      const data = await getTrainingById(trainingId) as Training
       setSingleTraining(data)
       console.log('Training data: ', data)
       const exerciseCount = getExerciseCount(data)
+
       console.log('exerciseCount: ', exerciseCount)
       createExerciseRows(exerciseCount, data)
+      exerciseId = exerciseCount + 1
+      setTimeout(() => initTrainingName(data), 100)
     }
     setInitialState()
-
-
-
-
   }, [trainingId])
+
+  function initTrainingName(trainingData: Training): void {
+    const trainingTitle = trainingData.title
+    const titleInput = document.getElementById('training-name') as HTMLInputElement
+    console.log(titleInput)
+    console.log(trainingTitle)
+    titleInput.setAttribute('value', trainingTitle)
+  }
+
+  function initExercises(trainingData: Training): void {
+    const exercises = trainingData.exercises
+    for (const exercise of exercises) {
+
+    }
+  }
 
   function getExerciseCount(training: Training): number {
     console.log('singleTraining.exercises.length: ', singleTraining.exercises.length)
@@ -69,17 +81,6 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     const trainingData = await response.json()
     return trainingData
   }
-
-  const onEdit = () => {
-    const trainingInfo = document.getElementById('single-training')
-    if (trainingInfo !== null) trainingInfo.classList.add('hidden')
-    setSingleTraining((prevState) => ({
-      ...prevState,
-      title: 'New'
-    }))
-    console.log(singleTraining)
-  }
-
 
   const createSet = (data: Set, id: number): void => {
     setSingleTraining((prevState) => {
@@ -133,6 +134,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
   }
 
   function addExercise(setCount = 0) {
+    console.log('addExercise triggered')
 
     const form = document.getElementById("exercise-form")
     if (form !== null) {
@@ -187,12 +189,12 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
           <div id='exercise-form' className='w-full flex-column'>
 
             <label htmlFor='training-name'>Training Name:</label>
-            <input type="text" id='training-name' value='1' onChange={setTrainingName} name='training-name' className='border bg-slate-100' />
+            <input type="text" id='training-name' value='' onChange={setTrainingName} name='training-name' className='border bg-slate-100' />
 
 
           </div>
           <div className='flex justify-between'>
-            <button onClick={() => addExercise} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
+            <button onClick={() => addExercise()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
               Add Exercise
             </button>
             <button onClick={saveTraining} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
