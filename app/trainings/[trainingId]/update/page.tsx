@@ -33,6 +33,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
   })
 
   useEffect(() => {
+    console.log('i fire once')
     const setInitialState = async () => {
       const data = await getTrainingById(trainingId) as Training
       setSingleTraining(data)
@@ -40,14 +41,16 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
       const exerciseCount = getExerciseCount(data)
 
       console.log('exerciseCount: ', exerciseCount)
+      console.log('singleTraining: ', singleTraining)
       createExerciseRows(exerciseCount, data)
       exerciseId = exerciseCount + 1
       setTimeout(() => initTrainingName(data), 100)
+      setTimeout(() => initExercises(data), 1000)
     }
     setInitialState()
   }, [trainingId])
 
-  function initTrainingName(trainingData: Training): void {
+  function initTrainingName (trainingData: Training): void {
     const trainingTitle = trainingData.title
     const titleInput = document.getElementById('training-name') as HTMLInputElement
     console.log(titleInput)
@@ -55,19 +58,29 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     titleInput.setAttribute('value', trainingTitle)
   }
 
-  function initExercises(trainingData: Training): void {
+  function initExercises (trainingData: Training): void {
     const exercises = trainingData.exercises
+    console.table(exercises)
     for (const exercise of exercises) {
-
+      for (const set of exercise.sets) {
+        console.table(set)
+        const setPosition = Number(set.setPos) - 1
+        const repInput = document.getElementById(`${exercise.position}-${setPosition}-set-rep`) as HTMLInputElement
+        const weightInput = document.getElementById(`${exercise.position}-${setPosition}-set-weight`) as HTMLInputElement
+        console.log(`${exercise.position}-${setPosition}-set-rep`)
+        console.log(`Set Inputs: ${repInput} ${weightInput}`)
+        repInput.setAttribute('value', String(set.reps))
+        weightInput.setAttribute('value', String(set.weight))
+      }
     }
   }
 
-  function getExerciseCount(training: Training): number {
+  function getExerciseCount (training: Training): number {
     console.log('singleTraining.exercises.length: ', singleTraining.exercises.length)
     return training.exercises.length
   }
 
-  function createExerciseRows(exerciseCount: number, data: Training): void {
+  function createExerciseRows (exerciseCount: number, data: Training): void {
     for (let i = 0; i < exerciseCount; i++) {
       const setsNumber = data.exercises[i].sets.length
       console.log('setsNumber: ', setsNumber)
@@ -75,7 +88,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     }
   }
 
-  async function getTrainingById(trainingId: string) {
+  async function getTrainingById (trainingId: string) {
     const response = await fetch(`http://localhost:3500/trainings/${trainingId}`)
     if (!response.ok) throw new Error('Failed to fetch Training')
     const trainingData = await response.json()
@@ -133,7 +146,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     })
   }
 
-  function addExercise(setCount = 0) {
+  function addExercise (setCount = 0) {
     console.log('addExercise triggered')
 
     const form = document.getElementById("exercise-form")
@@ -156,8 +169,6 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
         name: '',
         sets: []
       }
-
-
 
       setSingleTraining((prevState) => ({
         ...prevState,

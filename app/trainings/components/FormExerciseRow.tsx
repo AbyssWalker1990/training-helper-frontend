@@ -24,14 +24,14 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName, se
     console.log('setCount: ', setCount)
     if (setCount > 0) {
       for (let i = 0; i < setCount; i++) {
-        addSet()
+        addSet(true)
       }
     }
   }, [setCount])
 
 
 
-  function addSet(): void {
+  function addSet (isFromUpdateInit = false): void {
     console.log('Add Set')
     const exerciseRow = document.getElementById(`${id}-exercise-name`)
     if (exerciseRow !== null) {
@@ -51,8 +51,9 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName, se
         reps: 0,
         weight: 0,
       }
-
-      onCreateSet(blankSet, id)
+      if (!isFromUpdateInit) {
+        onCreateSet(blankSet, id)
+      }
     }
   }
 
