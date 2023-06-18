@@ -84,7 +84,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     for (let i = 0; i < exerciseCount; i++) {
       const setsNumber = data.exercises[i].sets.length
       console.log('setsNumber: ', setsNumber)
-      addExercise(setsNumber)
+      addExercise(setsNumber, true)
     }
   }
 
@@ -146,7 +146,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     })
   }
 
-  function addExercise (setCount = 0) {
+  function addExercise (setCount = 0, isInitUpdate = false) {
     console.log('addExercise triggered')
 
     const form = document.getElementById("exercise-form")
@@ -170,10 +170,12 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
         sets: []
       }
 
-      setSingleTraining((prevState) => ({
-        ...prevState,
-        exercises: [...prevState.exercises, blankExercise]
-      }))
+      if (!isInitUpdate) {
+        setSingleTraining((prevState) => ({
+          ...prevState,
+          exercises: [...prevState.exercises, blankExercise]
+        }))
+      }
 
       console.log('exerciseId: ', exerciseId)
       exerciseId++
