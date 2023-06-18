@@ -69,7 +69,7 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName, se
         </div>
 
         <div id={`${id}-add-button`} className='w-1/4 flex items-center justify-center text-center'>
-          <button onClick={addSet} className="w-1/2 flex bg-blue-500 hover:bg-blue-700 text-xs text-center text-white font-bold rounded px-1">
+          <button onClick={() => addSet(false)} className="w-1/2 flex bg-blue-500 hover:bg-blue-700 text-xs text-center text-white font-bold rounded px-1">
             Add Set
           </button>
         </div>

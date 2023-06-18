@@ -62,6 +62,8 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     const exercises = trainingData.exercises
     console.table(exercises)
     for (const exercise of exercises) {
+      const exerciseNameInput = document.getElementById(`${exercise.position}-name`) as HTMLInputElement
+      exerciseNameInput.setAttribute('value', exercise.name)
       for (const set of exercise.sets) {
         console.table(set)
         const setPosition = Number(set.setPos) - 1
