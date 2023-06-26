@@ -15,7 +15,7 @@ const Trainings: React.FC = () => {
       const token = session?.user.accessToken as string
       const getTrainings = async () => {
         // const token = data?.user.accessToken as string
-        const dataTrainings = await fetch(`${process.env.API_HOST}/trainings/user`, {
+        const dataTrainings = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/user`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

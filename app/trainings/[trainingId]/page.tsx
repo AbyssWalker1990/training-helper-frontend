@@ -34,7 +34,7 @@ const TrainingPage = async ({ params: { trainingId } }: Params) => {
   }, [])
 
   const getTrainingById = async (trainingId: string) => {
-    const response = await fetch(`${process.env.API_HOST}/trainings/${trainingId}`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/${trainingId}`)
     if (!response.ok) throw new Error('Failed to fetch Training')
     const trainingData = await response.json()
     setInitialTrainingData(trainingData)
@@ -69,7 +69,9 @@ const TrainingPage = async ({ params: { trainingId } }: Params) => {
       </div>
 
       <div>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2"><a href={`http://localhost:3000/trainings/${trainingData._id}/update`}>Edit</a></button>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
+          <a href={`${process.env.NEXT_PUBLIC_HOST}/trainings/${trainingData._id}/update`}>Edit</a>
+        </button>
       </div>
     </div>
   )
