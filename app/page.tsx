@@ -4,12 +4,12 @@ export const metadata = {
   description: 'Diary for planning fitness trainings schema',
 }
 
-export default function Home() {
-  
+export default function Home () {
+
   return (
     <main className="px-6 mx-auto">
       <p className="mt-12 mb-12 text-6xl text-center">
-        Home Page
+        Home Page {process.env.API_HOST}
       </p>
     </main>
   )
