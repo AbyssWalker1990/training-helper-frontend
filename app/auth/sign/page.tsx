@@ -23,7 +23,7 @@ function Sign () {
   const onSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (password !== confirmPassword) return console.log('Passwords does not match!')
-    const createdUser = await fetch(`${process.env.API_URL}/auth/register`, {
+    const createdUser = await fetch(`${process.env.API_HOST}/auth/register`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

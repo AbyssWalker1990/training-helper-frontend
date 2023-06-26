@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 
-const handler = NextAuth ({
+const handler = NextAuth({
   // Configure one or more authentication providers
   providers: [
     CredentialsProvider({
@@ -16,9 +16,9 @@ const handler = NextAuth ({
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials, req){
-        const {username, password} = credentials as any
-        const res = await fetch('http://localhost:3500/auth/login', {
+      async authorize (credentials, req) {
+        const { username, password } = credentials as any
+        const res = await fetch(`${process.env.API_HOST}/auth/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -26,9 +26,10 @@ const handler = NextAuth ({
           body: JSON.stringify({
             username,
             password,
-        })
+          })
         })
         const user = await res.json()
+        console.log('USER: ', user)
         if (res.ok && user) {
           return user
         } else {
@@ -41,10 +42,10 @@ const handler = NextAuth ({
     strategy: "jwt"
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt ({ token, user }) {
       return { ...token, ...user };
     },
-    async session({ session, token, user }) {
+    async session ({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
       session.user = token as any
       return session
