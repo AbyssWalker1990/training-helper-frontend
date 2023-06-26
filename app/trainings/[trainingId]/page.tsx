@@ -34,7 +34,7 @@ const TrainingPage = async ({ params: { trainingId } }: Params) => {
   }, [])
 
   const getTrainingById = async (trainingId: string) => {
-    const response = await fetch(`http://localhost:3500/trainings/${trainingId}`)
+    const response = await fetch(`${process.env.API_HOST}/trainings/${trainingId}`)
     if (!response.ok) throw new Error('Failed to fetch Training')
     const trainingData = await response.json()
     setInitialTrainingData(trainingData)

@@ -7,7 +7,7 @@ import SingleTraining from './components/SIngleTraining';
 
 const Trainings: React.FC = () => {
   const [trainings, setTrainings] = useState([])
-  
+
   const { data: session } = useSession()
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const Trainings: React.FC = () => {
       const token = session?.user.accessToken as string
       const getTrainings = async () => {
         // const token = data?.user.accessToken as string
-        const dataTrainings = await fetch(`http://localhost:3500/trainings/user`, {
+        const dataTrainings = await fetch(`${process.env.API_HOST}/trainings/user`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -33,26 +33,26 @@ const Trainings: React.FC = () => {
     }
   }, [session])
 
-  
-  
+
+
   if (trainings.length >= 1) {
     return (
       <div className='flex flex-wrap h-screen'>
         <div id='trainings' className='flex flex-wrap justify-center items-center p-5 gap-5'>
           {trainings.map((training: Training) => (
-            <SingleTraining key={training._id} training={training}/>
+            <SingleTraining key={training._id} training={training} />
           ))}
         </div>
       </div>
     )
   } else {
-      return (
-        <div className='flex flex-wrap h-screen'>
-          <div id='trainings' className='flex flex-wrap justify-center items-center p-5 gap-5'>
-            <h1>You Have not trainings yet!!!</h1>
-          </div>
+    return (
+      <div className='flex flex-wrap h-screen'>
+        <div id='trainings' className='flex flex-wrap justify-center items-center p-5 gap-5'>
+          <h1>You Have not trainings yet!!!</h1>
         </div>
-      )
+      </div>
+    )
   }
 }
 

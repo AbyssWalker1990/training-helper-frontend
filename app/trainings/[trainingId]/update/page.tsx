@@ -91,7 +91,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
   }
 
   async function getTrainingById (trainingId: string) {
-    const response = await fetch(`http://localhost:3500/trainings/${trainingId}`)
+    const response = await fetch(`${process.env.API_HOST}/trainings/${trainingId}`)
     if (!response.ok) throw new Error('Failed to fetch Training')
     const trainingData = await response.json()
     return trainingData
@@ -191,7 +191,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
       body: JSON.stringify(singleTraining)
     }
 
-    const response = await fetch('http://localhost:3500/trainings/', requestOptions)
+    const response = await fetch(`${process.env.API_HOST}/trainings/`, requestOptions)
     const data = await response.json()
     console.log(data)
   }
