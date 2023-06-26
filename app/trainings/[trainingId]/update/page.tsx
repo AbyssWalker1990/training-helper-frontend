@@ -196,7 +196,6 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     console.log(data)
   }
 
-
   return (
     <>
       <div className='flex flex-wrap w-full bg-slate-500 h-screen' id='training-form-container'>
