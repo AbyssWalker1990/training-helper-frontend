@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 
+
 const handler = NextAuth({
   // Configure one or more authentication providers
   providers: [
@@ -31,6 +32,7 @@ const handler = NextAuth({
         const user = await res.json()
         console.log('USER: ', user)
         if (res.ok && user) {
+
           return user
         } else {
           return null

@@ -4,7 +4,7 @@ import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 
 
-function Auth() {
+function Auth () {
   const [formData, setFormData] = useState({
     user: '',
     password: ''
@@ -27,6 +27,7 @@ function Auth() {
       redirect: true,
       callbackUrl: '/'
     })
+    console.log("SignIn result: ", result)
   }
 
   return (

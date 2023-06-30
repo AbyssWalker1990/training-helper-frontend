@@ -10,9 +10,13 @@ const Trainings: React.FC = () => {
 
   const { data: session } = useSession()
 
+
+
   useEffect(() => {
+
     if (session !== undefined) {
       const token = session?.user.accessToken as string
+      console.log('session: ', session)
       const getTrainings = async () => {
         // const token = data?.user.accessToken as string
         const dataTrainings = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/user`, {
@@ -24,9 +28,42 @@ const Trainings: React.FC = () => {
             token
           })
         })
-        console.log('dataTrainings: ', dataTrainings)
-        const trainingsData = await dataTrainings.json()
-        setTrainings(trainingsData)
+
+        let dataTrainingsRefetched: Response
+        if (dataTrainings.status === 401) {
+          const refreshToken = session?.user.refreshToken as string
+          const newToken = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/auth/refresh/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              refreshToken
+            })
+          })
+          const newAccessToken = await newToken.json()
+          console.log('newAccessToken: ', newAccessToken)
+          if (session) session.user.accessToken = newAccessToken.accessToken
+
+          dataTrainingsRefetched = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/user`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              token
+            })
+          })
+        }
+
+        let trainingsData
+        if (dataTrainings.status === 401) {
+          trainingsData = await dataTrainingsRefetched!.json()
+          setTrainings(trainingsData)
+        } else {
+          trainingsData = await dataTrainings!.json()
+          setTrainings(trainingsData)
+        }
       }
       getTrainings()
       console.log(session?.user.accessToken)
