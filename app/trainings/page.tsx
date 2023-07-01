@@ -4,60 +4,32 @@ import React, { useEffect, useState } from 'react'
 import { Training } from '@/types';
 import SingleTraining from './components/SIngleTraining';
 
-
 const Trainings: React.FC = () => {
   const [trainings, setTrainings] = useState([])
-
   const { data: session } = useSession()
 
-
-
   useEffect(() => {
-
     if (session !== undefined) {
       const token = session?.user.accessToken as string
       console.log('session: ', session)
       const getTrainings = async () => {
         // const token = data?.user.accessToken as string
-        const dataTrainings = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/user`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            token
-          })
-        })
 
-        let dataTrainingsRefetched: Response
-        if (dataTrainings.status === 401) {
-          const refreshToken = session?.user.refreshToken as string
-          const newToken = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/auth/refresh/`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              refreshToken
-            })
-          })
-          const newAccessToken = await newToken.json()
-          console.log('newAccessToken: ', newAccessToken)
-          if (session) session.user.accessToken = newAccessToken.accessToken
-
-          dataTrainingsRefetched = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/user`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              token
-            })
-          })
-        }
+        const dataTrainings = await fetchTrainings(token, 'token')
 
         let trainingsData
-        if (dataTrainings.status === 401) {
+        let dataTrainingsRefetched: Response
+        if (dataTrainings.status === 401 || dataTrainings.status === 500) {
+          const refreshToken = session?.user.refreshToken as string
+          const newToken = await fetchTrainings(refreshToken, 'refreshToken')
+          const newAccessToken = await newToken.json()
+          console.log('newAccessToken: ', newAccessToken)
+          console.log('newAccessToken type: ', typeof newAccessToken)
+
+          if (session) session.user.accessToken = newAccessToken.accessToken
+          console.log('session.user.accessToken :', session?.user.accessToken)
+
+          dataTrainingsRefetched = await fetchTrainings(newAccessToken.accessToken, 'token')
           trainingsData = await dataTrainingsRefetched!.json()
           setTrainings(trainingsData)
         } else {
@@ -65,11 +37,25 @@ const Trainings: React.FC = () => {
           setTrainings(trainingsData)
         }
       }
-      getTrainings()
+      getTrainings().catch((err) => console.log('Error from Useeffect: ', err))
       console.log(session?.user.accessToken)
     }
   }, [session])
 
+  async function fetchTrainings (token: string, type: string) {
+    let route
+    type === 'token' ? route = 'trainings/user' : route = 'auth/refresh/'
+    const trainings = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/${route}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        [type]: token
+      })
+    })
+    return trainings
+  }
 
 
   if (trainings.length >= 1) {
