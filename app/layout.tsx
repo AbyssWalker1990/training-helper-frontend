@@ -6,6 +6,7 @@ import { ReactNode } from 'react'
 import Providers from './components/Providers'
 
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -17,14 +18,14 @@ interface IProps {
   children: ReactNode
 }
 
-export default function RootLayout({ children }: IProps) {
+export default function RootLayout ({ children }: IProps) {
   return (
     <html lang="en">
-      
+
       <body className={inter.className}>
         <Providers>
           <NavbarTop />
-            {children}
+          {children}
           <NavbarBot />
         </Providers>
       </body>

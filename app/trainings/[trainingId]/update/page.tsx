@@ -17,6 +17,7 @@ type Set = {
 }
 
 type Training = {
+  _id: string
   username: string
   title: string
   exercises: Exercise[]
@@ -27,6 +28,7 @@ let exerciseId = 1
 
 const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
   const [singleTraining, setSingleTraining] = useState<Training>({
+    _id: '',
     username: '',
     title: '',
     exercises: []
@@ -185,14 +187,19 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     }
   }
 
-  const saveTraining = async () => {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(singleTraining)
+  const updateTraining = async () => {
+    const updateBody = {
+      title: singleTraining.title,
+      exercises: singleTraining.exercises
     }
+    const requestOptions = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updateBody)
+    }
+    const trainingId = singleTraining._id
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/`, requestOptions)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/${trainingId}`, requestOptions)
     const data = await response.json()
     console.log(data)
   }
@@ -204,7 +211,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
           <div id='exercise-form' className='w-full flex-column'>
 
             <label htmlFor='training-name'>Training Name:</label>
-            <input type="text" id='training-name' value='' onChange={setTrainingName} name='training-name' className='border bg-slate-100' />
+            <input type="text" id='training-name' onChange={setTrainingName} name='training-name' className='border bg-slate-100' />
 
 
           </div>
@@ -212,8 +219,8 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
             <button onClick={() => addExercise()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
               Add Exercise
             </button>
-            <button onClick={saveTraining} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
-              Save
+            <button onClick={updateTraining} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
+              Update
             </button>
           </div>
         </div>
