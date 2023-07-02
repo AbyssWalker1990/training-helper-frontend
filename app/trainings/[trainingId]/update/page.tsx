@@ -34,6 +34,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
 
   useEffect(() => {
     console.log('i fire once')
+
     const setInitialState = async () => {
       const data = await getTrainingById(trainingId) as Training
       setSingleTraining(data)

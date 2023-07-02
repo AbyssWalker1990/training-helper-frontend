@@ -130,6 +130,8 @@ const CreateTrainingPage = () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/`, requestOptions)
     const data = await response.json()
     console.log(data)
+    console.log(`${process.env.NEXT_PUBLIC_HOST}/trainings/${data.newTraining._id}/update`)
+    window.location.replace(`${process.env.NEXT_PUBLIC_HOST}/trainings/${data.newTraining._id}/update`)
   }
 
   return (
