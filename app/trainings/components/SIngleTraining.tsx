@@ -35,12 +35,12 @@ const SingleTraining: React.FC<Props> = ({ training }) => {
         <ExerciseRow key={exercise.position} exercise={exercise} />))}
       </div>
 
-      <div onClick={() => { deleteTraining(training._id) }} id='training-link' className='px-5 pb-2 bg-gray-400 rounded-b-lg h-12 absolute bottom-0 w-full flex justify-between items-center'>
-        <button className="bg-red-400 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-2">
+      <div id='training-link' className='px-5 pb-2 bg-gray-400 rounded-b-lg h-12 absolute bottom-0 w-full flex justify-between items-center'>
+        <button onClick={() => { deleteTraining(training._id) }} className="bg-red-400 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-2">
           Delete
         </button>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
-          <a href={`${process.env.NEXT_PUBLIC_HOST}/trainings/${training._id}`}>Edit</a>
+          <a href={`${process.env.NEXT_PUBLIC_HOST}/trainings/${training._id}/update`}>Edit</a>
         </button>
       </div>
     </div>

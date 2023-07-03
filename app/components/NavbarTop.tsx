@@ -3,30 +3,36 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import React from 'react'
 import Link from 'next/link'
 
-export default function NavbarTop() {
+export default function NavbarTop () {
 
   const { data: session } = useSession()
 
   return (
-    <nav className="bg-slate-600 p-4 sticky top-0 drop-shadow-xl z-10">
-      <div className='w-full mx-auto flex justify-left gap-3 flex-col sm:flex-row'>
-        <Link href='/' className="text-white/90 no-underline hover:text-white">Home</Link>
-        <Link href='/admin' className="text-white/90 no-underline hover:text-white">Admin</Link>
-        <div className="w-full text-white/90hover:text-white">
-          {session?.user ? (
-            <div className='flex justify-between w-full text-white/90 hover:text-white'>
-              <button onClick={() => { signOut({ callbackUrl: '/' }) }}>Sign out</button>
-              <p className='justify-right sm:align-middle'>{session?.user?.username}</p>
-            </div>
-          ) : (
-            <div>
-              <button className="text-white/90 hover:text-white" onClick={() => { signIn() }}>Sign In</button>
-            </div>
-          )}
-        </div>
-      </div>
-    </nav>
+    <div>
+      <header className='bg-slate-600'>
+        <section className="header-title-line align-center">
+          <h1 className='text-2xl pt-2'>Training Helper</h1>
+          <button className="hidden menu-button">
+            <div className="menu-icon"></div>
+          </button>
+        </section>
+
+        <nav className='top'>
+          <ul>
+            <li className='bg-slate-600'><Link href='/' className="text-white/90 no-underline hover:text-white">Home</Link></li>
+            <li className='bg-slate-600'><Link href='/admin' className="text-white/90 no-underline hover:text-white">Admin</Link></li>
+            {session?.user ? (
+              <li className='bg-slate-600' onClick={() => { signOut({ callbackUrl: '/' }) }}><a className="text-white/90 no-underline font-bold cursor-pointer hover:text-white">Sign out, {session?.user?.username}</a></li>
+            ) : (
+              <li className='bg-slate-600' onClick={() => { signIn() }}><a className="text-white/90 no-underline font-bold cursor-pointer hover:text-white">Sign in</a></li>
+            )}
+          </ul>
+        </nav>
+      </header>
+    </div>
   )
 }
+
+
 
 
