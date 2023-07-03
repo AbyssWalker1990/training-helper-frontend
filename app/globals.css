@@ -2,21 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 :root {
     --HEADER-BGCOLOR: #333;
     --HEADER-COLOR: whitesmoke;
-}
-
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-flow: column nowrap;
 }
 
 header {
