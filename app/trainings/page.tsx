@@ -2,20 +2,24 @@
 import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 import { Training } from '@/types';
-import SingleTraining from './components/SIngleTraining';
+import SingleTraining from './components/SIngleTraining'
+import { setCookie } from 'cookies-next'
 
 const Trainings: React.FC = () => {
   const [trainings, setTrainings] = useState([])
+
   const { data: session } = useSession()
 
   useEffect(() => {
     if (session !== undefined) {
       const token = session?.user.accessToken as string
+      const refreshToken = session?.user.refreshToken as string
       console.log('session: ', session)
       const getTrainings = async () => {
         // const token = data?.user.accessToken as string
 
         const dataTrainings = await fetchTrainings(token, 'token')
+        setCookie('jwt', refreshToken);
 
         let trainingsData
         let dataTrainingsRefetched: Response
@@ -61,7 +65,7 @@ const Trainings: React.FC = () => {
   if (trainings.length >= 1) {
     return (
       <div className='flex flex-wrap h-screen'>
-        <div id='trainings' className='flex flex-wrap justify-center items-center p-5 gap-5'>
+        <div id='trainings' className='flex flex-wrap justify-center items-center p-5 gap-5 xl:gap-15 overflow-hidden'>
           {trainings.map((training: Training) => (
             <SingleTraining key={training._id} training={training} />
           ))}

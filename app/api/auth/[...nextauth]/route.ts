@@ -1,5 +1,8 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import Cookies from 'cookies'
+
+
 
 
 
@@ -18,6 +21,8 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" }
       },
       async authorize (credentials, req) {
+        const cookies = new Cookies(req)
+
         const { username, password } = credentials as any
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/auth/login`, {
           method: 'POST',
@@ -32,6 +37,10 @@ const handler = NextAuth({
         const user = await res.json()
         console.log('USER: ', user)
         if (res.ok && user) {
+          console.table(user)
+          // cookies.set('accessToken', user.accessToken, {
+          //   httpOnly: true, // true by default
+          // })
 
           return user
         } else {
