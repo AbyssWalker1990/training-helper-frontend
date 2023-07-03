@@ -121,5 +121,3 @@ nav.top a:focus {
     transform: scale(1.2);
     transition: all 0.3s;
 }
-
-@media screen and (min-width: 576px) {}

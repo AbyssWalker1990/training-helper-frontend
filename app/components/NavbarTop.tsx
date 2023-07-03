@@ -21,9 +21,9 @@ export default function NavbarTop () {
           <li className='bg-slate-600'><Link href='/' className="text-white/90 no-underline hover:text-white">Home</Link></li>
           <li className='bg-slate-600'><Link href='/admin' className="text-white/90 no-underline hover:text-white">Admin</Link></li>
           {session?.user ? (
-            <li className='bg-slate-600' onClick={() => { signOut({ callbackUrl: '/' }) }}><a className="text-white/90 no-underline font-bold cursor-pointer hover:text-white">Sign out, {session?.user?.username}</a></li>
+            <li className='bg-slate-600' onClick={() => { signOut({ callbackUrl: '/' }) }}><a className="text-white/90 no-underline font-bold cursor-pointer hover:text-white">Log out, {session?.user?.username}</a></li>
           ) : (
-            <li className='bg-slate-600' onClick={() => { signIn() }}><a className="text-white/90 no-underline font-bold cursor-pointer hover:text-white">Sign in</a></li>
+            <li className='bg-slate-600' onClick={() => { signIn() }}><a className="text-white/90 no-underline font-bold cursor-pointer hover:text-white">Log in</a></li>
           )}
         </ul>
       </nav>
