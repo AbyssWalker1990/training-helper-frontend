@@ -166,6 +166,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
           setExerciseName={setExerciseName}
           setReps={setReps}
           setCount={setCount}
+          setSingleTraining={setSingleTraining}
         />
       )
 
@@ -207,7 +208,7 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
   return (
     <>
       <div className='flex flex-wrap w-full bg-slate-500 h-screen' id='training-form-container'>
-        <div className='p-4 w-full border border-gray-300 shadow-md rounded-lg p-4' >
+        <div className='p-4 my-16 w-full border border-gray-300 shadow-md rounded-lg p-4' >
           <div id='exercise-form' className='w-full flex-column'>
 
             <label htmlFor='training-name'>Training Name:</label>
@@ -224,7 +225,6 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
             </button>
           </div>
         </div>
-
       </div>
     </>
   )
