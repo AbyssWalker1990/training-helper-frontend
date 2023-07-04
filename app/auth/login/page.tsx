@@ -2,6 +2,8 @@
 import { useState, ChangeEvent, MouseEvent } from 'react'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Auth () {
@@ -24,14 +26,24 @@ function Auth () {
     const result = await signIn('credentials', {
       username: user,
       password: password,
-      redirect: true,
+      redirect: false,
       callbackUrl: '/'
     })
+
+
+    if (result?.ok) {
+      console.log('LOGGED')
+      toast.success('succesfully Logged In !', {
+        position: toast.POSITION.TOP_RIGHT
+      })
+      const loginForm = document.getElementById('login-form')
+      loginForm?.classList.add('hidden')
+    }
     console.log("SignIn result: ", result)
   }
 
   return (
-    <form className="bg-white p-6 rounded-lg shadow-md">
+    <form id='login-form' className="bg-white p-6 rounded-lg shadow-md">
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="user">
           Username

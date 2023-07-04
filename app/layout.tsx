@@ -4,6 +4,8 @@ import NavbarTop from './components/NavbarTop'
 import NavbarBot from './components/NavbarBot'
 import { ReactNode } from 'react'
 import Providers from './components/Providers'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -29,6 +31,7 @@ export default function RootLayout ({ children }: IProps) {
             {children}
           </main>
           <NavbarBot />
+          <ToastContainer />
         </Providers>
       </body>
     </html>

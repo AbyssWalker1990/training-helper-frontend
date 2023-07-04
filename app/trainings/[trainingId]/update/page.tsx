@@ -3,6 +3,8 @@ import React, { ChangeEvent, useState, useEffect } from 'react'
 import { Exercise } from '@/types'
 import FormExerciseRow from '../../components/FormExerciseRow'
 import { createRoot } from 'react-dom/client'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type Params = {
   params: {
@@ -217,6 +219,9 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/${trainingId}`, requestOptions)
     const data = await response.json()
     console.log(data)
+    toast.success('Training Updated !', {
+      position: toast.POSITION.TOP_RIGHT
+    })
   }
 
   return (
