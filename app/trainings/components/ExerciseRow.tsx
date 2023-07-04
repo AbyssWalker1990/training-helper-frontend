@@ -26,7 +26,7 @@ const ExerciseRow: React.FC<Props> = ({ exercise }) => {
   if (sets.length > 0) {
     return (
       <div className='p-1 justify-content-left flex flex-wrap bg-slate-100'>
-        <div className='w-full h-full'>
+        <div className='w-full'>
           <h1>{exercise.position}. {exercise.name}</h1>
         </div>
         <div className='w-full flex flex-wrap gap-3 overflow-hidden border'>

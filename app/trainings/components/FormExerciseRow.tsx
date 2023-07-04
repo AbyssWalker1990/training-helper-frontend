@@ -93,7 +93,7 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName, se
 
   return (
     <div>
-      <div className='flex gap-2 mt-2 items-center justify-between border bg-slate-400'>
+      <div className='exercise-row flex gap-2 mt-2 items-center justify-between border bg-slate-400'>
         <div id={`${id}-exercise-name`}>
           <label htmlFor={`${id}-name`}>{id}</label>
           <input type="text" id={`${id}-name`} onChange={setExerciseName} name={`${id}-name`} className='border bg-slate-100' />

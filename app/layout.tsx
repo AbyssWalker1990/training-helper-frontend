@@ -25,7 +25,9 @@ export default function RootLayout ({ children }: IProps) {
       <body className={inter.className}>
         <Providers>
           <NavbarTop />
-          {children}
+          <main className='py-14'>
+            {children}
+          </main>
           <NavbarBot />
         </Providers>
       </body>

@@ -169,22 +169,36 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
           setSingleTraining={setSingleTraining}
         />
       )
-
       const blankExercise = {
         position: exerciseId,
         name: '',
         sets: []
       }
-
       if (!isInitUpdate) {
         setSingleTraining((prevState) => ({
           ...prevState,
           exercises: [...prevState.exercises, blankExercise]
         }))
       }
-
       console.log('exerciseId: ', exerciseId)
       exerciseId++
+    }
+  }
+
+  function deleteExercise () {
+    const form = document.getElementById("exercise-form")
+    if (form !== null) {
+      const itemToDelete = form.lastChild
+      const totalItems = form.querySelectorAll('.exercise-row')
+      console.log('totalItems: ', totalItems.length)
+      itemToDelete?.remove()
+      exerciseId--
+      setSingleTraining?.((prevState) => {
+        console.log('Deleting Exercise from state')
+        const copy = { ...prevState }
+        copy.exercises.splice(totalItems.length - 1, 1)
+        return copy
+      })
     }
   }
 
@@ -217,12 +231,20 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
 
           </div>
           <div className='flex justify-between'>
-            <button onClick={() => addExercise()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
-              Add Exercise
-            </button>
+
+            <div className='flex gap-5 md:gap-16'>
+              <button onClick={() => addExercise()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
+                Add Exercise
+              </button>
+              <button onClick={deleteExercise} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-2">
+                Delete Exercise
+              </button>
+            </div>
+
             <button onClick={updateTraining} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2">
               Update
             </button>
+
           </div>
         </div>
       </div>
