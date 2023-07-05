@@ -1,6 +1,8 @@
 'use client'
 import { useState, ChangeEvent, MouseEvent } from 'react'
 import { signIn } from 'next-auth/react'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Sign () {
@@ -39,18 +41,28 @@ function Sign () {
       const result = await signIn('credentials', {
         username,
         password,
-        redirect: true,
+        redirect: false,
         callbackUrl: '/'
       })
-    } else {
-      console.log('Error, didnt create!')
+      if (result?.ok && !result?.error) {
+        console.log('LOGGED')
+        toast.success('User Created !', {
+          position: toast.POSITION.TOP_RIGHT
+        })
+        const loginForm = document.getElementById('sign-form')
+        loginForm?.classList.add('hidden')
+      } else {
+        toast.error('Something went Wrong! ', {
+          position: toast.POSITION.TOP_RIGHT
+        })
+      }
     }
   }
 
 
 
   return (
-    <form className="bg-white p-6 rounded-lg shadow-md">
+    <form id='sign-form' className="bg-white p-6 rounded-lg shadow-md">
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="username">
           Username

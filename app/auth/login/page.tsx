@@ -29,15 +29,19 @@ function Auth () {
       redirect: false,
       callbackUrl: '/'
     })
+    console.log('result?.status: ', result?.status)
 
-
-    if (result?.ok) {
+    if (result?.ok && !result?.error) {
       console.log('LOGGED')
       toast.success('succesfully Logged In !', {
         position: toast.POSITION.TOP_RIGHT
       })
       const loginForm = document.getElementById('login-form')
       loginForm?.classList.add('hidden')
+    } else {
+      toast.error('Bad Credentials!', {
+        position: toast.POSITION.TOP_RIGHT
+      })
     }
     console.log("SignIn result: ", result)
   }
