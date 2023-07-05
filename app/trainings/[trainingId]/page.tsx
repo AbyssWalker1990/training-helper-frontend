@@ -1,5 +1,5 @@
 'use client'
-import React, { ChangeEvent, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Exercise } from '@/types'
 import ExerciseRow from '../components/ExerciseRow'
 
