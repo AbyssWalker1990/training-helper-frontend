@@ -1,8 +1,9 @@
 'use client'
-
 import { Training } from '@/types'
 import React from 'react'
 import ExerciseRow from './ExerciseRow'
+import { toast } from 'react-toastify'
+
 
 type Props = {
   training: Training
@@ -20,6 +21,9 @@ const SingleTraining: React.FC<Props> = ({ training }) => {
     console.log(response.status)
     const trainingElement = document.getElementById(id)
     trainingElement?.remove()
+    toast.warning(`Training ${training.title} Deleted!!`, {
+      position: toast.POSITION.TOP_RIGHT
+    })
 
   }
 

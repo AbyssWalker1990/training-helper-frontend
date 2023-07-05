@@ -93,21 +93,21 @@ const FormExerciseRow: React.FC<Props> = ({ id, onCreateSet, setExerciseName, se
 
   return (
     <div>
-      <div className='exercise-row flex gap-2 mt-2 items-center justify-between border bg-slate-400'>
-        <div id={`${id}-exercise-name`}>
+      <div className='exercise-row flex gap-2 mt-2 justify-between bg-slate-400 p-1'>
+        <div id={`${id}-exercise-name`} className='flex flex-nowrap items-center justify-center gap-1'>
           <label htmlFor={`${id}-name`}>{id}</label>
-          <input type="text" id={`${id}-name`} onChange={setExerciseName} name={`${id}-name`} className='border bg-slate-100' />
+          <input type="text" id={`${id}-name`} onChange={setExerciseName} name={`${id}-name`} className='bg-slate-100' />
         </div>
 
-        <div id={`${id}-sets`} className="flex flex-row flex-wrap gap-2 max-w-md border bg-slate-400'">
+        <div id={`${id}-sets`} className="w-full flex flex-row flex-wrap justify-start items-start gap-2 bg-slate-400'">
         </div>
 
-        <div id={`${id}-add-button`} className='w-1/4 flex items-center justify-center text-center'>
-          <button onClick={() => addSet(false)} className="w-1/2 flex bg-blue-500 hover:bg-blue-700 text-xs text-center text-white font-bold rounded px-1">
-            Add Set
+        <div id={`${id}-add-button`} className='w-14 flex items-center justify-center text-center'>
+          <button onClick={() => addSet(false)} className="w-6 h-6 flex bg-blue-500 hover:bg-blue-700 text-xs text-center text-white font-bold rounded px-1 items-center justify-center">
+            +
           </button>
-          <button onClick={deleteSet} className="w-1/2 flex bg-red-500 hover:bg-red-700 text-xs text-center text-white font-bold rounded px-1">
-            Delete Set
+          <button onClick={deleteSet} className="w-6 h-6 flex bg-red-500 hover:bg-red-700 text-xs text-center text-white font-bold rounded px-1 items-center justify-center">
+            -
           </button>
         </div>
       </div>

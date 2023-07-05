@@ -33,6 +33,7 @@ const CreateTrainingPage = () => {
     title: '',
     exercises: []
   })
+  console.log(session)
 
 
 
@@ -61,6 +62,7 @@ const CreateTrainingPage = () => {
 
       setTraining((prevState) => ({
         ...prevState,
+        username: session?.user?.username as string,
         exercises: [...prevState.exercises, blankExercise]
       }))
 

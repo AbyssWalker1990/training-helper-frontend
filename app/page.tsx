@@ -5,10 +5,10 @@ export const metadata = {
 
 export default function Home () {
   return (
-
-    <p className="mt-12 mb-12 text-6xl text-center overflow-hidden">
-      Home Page {process.env.NEXT_PUBLIC_API_HOST}
-    </p>
-
+    <section id="main-page-body" className="border flex items-center justify-center">
+      <p className="text-6xl overflow-hidden">
+        Home Page {process.env.NEXT_PUBLIC_API_HOST}
+      </p>
+    </section>
   )
 }
