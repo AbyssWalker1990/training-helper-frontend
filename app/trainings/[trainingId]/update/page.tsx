@@ -49,8 +49,8 @@ const TrainingPageUpdate = ({ params: { trainingId } }: Params) => {
       console.log('singleTraining: ', singleTraining)
       createExerciseRows(exerciseCount, data)
       exerciseId = exerciseCount + 1
-      setTimeout(() => initTrainingName(data), 100)
-      setTimeout(() => initExercises(data), 1000)
+      setTimeout(() => initTrainingName(data), 1)
+      setTimeout(() => initExercises(data), 50)
     }
     setInitialState()
   }, [trainingId])
