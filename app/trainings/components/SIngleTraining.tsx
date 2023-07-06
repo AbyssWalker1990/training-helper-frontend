@@ -16,7 +16,7 @@ const SingleTraining: React.FC<Props> = ({ training }) => {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/${id}`, {
       method: 'DELETE',
-      credentials: 'include'
+      credentials: 'same-origin'
     })
     console.log(response.status)
     const trainingElement = document.getElementById(id)
