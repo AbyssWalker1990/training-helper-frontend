@@ -19,7 +19,7 @@ const Trainings: React.FC = () => {
         // const token = data?.user.accessToken as string
 
         const dataTrainings = await fetchTrainings(token, 'token')
-        setCookie('jwt', token);
+        setCookie('jwt', refreshToken);
 
         let trainingsData
         let dataTrainingsRefetched: Response
