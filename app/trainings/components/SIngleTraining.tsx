@@ -16,14 +16,21 @@ const SingleTraining: React.FC<Props> = ({ training }) => {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/trainings/${id}`, {
       method: 'DELETE',
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     console.log(response.status)
-    const trainingElement = document.getElementById(id)
-    trainingElement?.remove()
-    toast.warning(`Training ${training.title} Deleted!!`, {
-      position: toast.POSITION.TOP_RIGHT
-    })
+    if (response.status === 204) {
+      const trainingElement = document.getElementById(id)
+      trainingElement?.remove()
+      toast.warning(`Training ${training.title} Deleted!!`, {
+        position: toast.POSITION.TOP_RIGHT
+      })
+    } else {
+      toast.error(`Error!!`, {
+        position: toast.POSITION.TOP_RIGHT
+      })
+    }
+
 
   }
 
